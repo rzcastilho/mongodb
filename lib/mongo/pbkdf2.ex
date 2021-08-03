@@ -10,6 +10,8 @@ defmodule Mongo.PBKDF2 do
   that key in multiple incompatible contexts.
   see http://tools.ietf.org/html/rfc2898#section-5.2
   """
+  
+  import Mongo.CryptoUtils
 
   use Bitwise
   @max_length bsl(1, 32) - 1
@@ -65,6 +67,6 @@ defmodule Mongo.PBKDF2 do
   end
 
   defp mac_fun(digest, secret) do
-    &:crypto.hmac(digest, secret, &1)
+    &hmac(digest, secret, &1)
   end
 end
